@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+    - main
+
+name: Generate .pfd from report.Rmd
+
+jobs:
+  render_document:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+      - name: Render report
+        uses: lc5415/rmarkdown-action@v1
+        with:
+          input_file: report.Rmd
