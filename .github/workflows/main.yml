@@ -15,3 +15,4 @@ jobs:
         uses: lc5415/rmarkdown-action@v1
         with:
           input_file: report.Rmd
+          output_format: pdf_document
