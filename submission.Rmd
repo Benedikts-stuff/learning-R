@@ -9,6 +9,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(forcats)
 library(readxl)
+
+# Daten laden
+gifts_age <- read_csv("./data/tidytuesday-2024-02-13/gifts_age.csv", show_col_types = FALSE)
+gifts_gender <- read_csv("./data/tidytuesday-2024-02-13/gifts_gender.csv", , show_col_types = FALSE)
+historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spending.csv", show_col_types = FALSE)
 ```
 
 ## Introdcution
@@ -20,9 +25,6 @@ in this R-Markdown document we investigate the Valentines day Data-sat from the 
 First, we want to investigate the connection bewteen thedifferent Age groups and their spending behaviour on Valentines day. Therefore we Plot how much percent of each Agegroup spend X amount of money on valentines day. Then we fit a linear Model to this data to if there is a linear connection bewteen the Age and the amount of people from this age group spending money on Valentines day.
 
 ```{r, echo=FALSE}
-# Daten laden
-gifts_age <- read_csv("./data/tidytuesday-2024-02-13/gifts_age.csv")
-
 # Sicherstellen, dass "Age" als Faktor behandelt wird und die Labels korrekt sind
 age_labels <- levels(as_factor(gifts_age$Age))
 gifts_age$Age <- factor(gifts_age$Age, levels = age_labels)
@@ -44,9 +46,6 @@ ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
 ## Does Gender affect the spending behaviour?
 Next, we wanted to see how the spending behaviour differs between genders.
 ```{r, echo=FALSE}
-# Daten laden
-gifts_gender <- read_csv("./data/tidytuesday-2024-02-13/gifts_gender.csv")
-
 # Labels für die Kategorien festlegen
 category_labels <- c("Candy", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing", "GiftCards")
 gifts_gender_long <- gifts_gender %>%
@@ -139,7 +138,6 @@ ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
 
 ## Historical spending by category
 ```{r, echo=FALSE}
-historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spending.csv")
 historical_spending_labels <- levels(as_factor(historical_spending$Year))
 historical_spending$Year <- factor(historical_spending$Year, levels = historical_spending_labels)
 
