@@ -6,7 +6,6 @@ gifts_age <- read_csv("./data/tidytuesday-2024-02-13/gifts_age.csv")
 historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spending.csv")
 gifts_gender <- read_csv("./data/tidytuesday-2024-02-13/gifts_gender.csv")
 
-
 ### basic plot
 category_labels <- c("Candy", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing", "GiftCards")
 gifts_gender_long <- gifts_gender %>%
@@ -22,12 +21,12 @@ ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
     scale_fill_manual(values = c("Men" = "#4989ff", "Women" = "#fd4848")) +
     labs(title = "Average % Spending by Gender and Category", x = "Category", y = "Average % Spending") +
     theme(
-        axis.text.x = element_text(margin = margin(t = -20)),
         panel.grid.major = element_line(color = "#c2c2c2", size = 0.25),
         panel.grid.minor = element_line(color = "#787878", size = 0.25),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.ticks.y = element_blank(),
-        axis.title.x = element_text(margin = margin(t = 10))
+        axis.title.x = element_text(margin = margin(t = 10)),
+        axis.text.x = element_text(margin = margin(t = -20))
     )
