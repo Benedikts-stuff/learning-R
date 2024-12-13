@@ -19,8 +19,7 @@ in this R-Markdown document we investigate the Valentines day Data-sat from the 
 
 First, we want to investigate the connection bewteen thedifferent Age groups and their spending behaviour on Valentines day. Therefore we Plot how much percent of each Agegroup spend X amount of money on valentines day. Then we fit a linear Model to this data to if there is a linear connection bewteen the Age and the amount of people from this age group spending money on Valentines day.
 
-```{r pressure, echo=FALSE}
-
+```{r, echo=FALSE}
 # Daten laden
 gifts_age <- read_csv("./data/tidytuesday-2024-02-13/gifts_age.csv")
 
@@ -30,16 +29,51 @@ gifts_age$Age <- factor(gifts_age$Age, levels = age_labels)
 
 # Plot: Altersgruppen vs. SpendingCelebrating
 ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
-  geom_line(aes(color = "Data"), size = 1) +  # Linie für die Daten
-  geom_smooth(aes(color = "Linear Model"), method = "lm", se = FALSE) +  # Lineares Modell hinzufügen
+  geom_line(aes(color = "Data"), size = 1) + # Linie für die Daten
+  geom_smooth(aes(color = "Linear Model"), method = "lm", se = FALSE) + # Lineares Modell hinzufügen
   labs(
     title = "Spending Behavior vs. Age",
     x = "Age Groups",
     y = "Percent Spending Money on Valentine's Day",
     color = "Legend"
   ) +
-  scale_x_discrete(labels = age_labels) +  # Altersgruppen korrekt anzeigen
+  scale_x_discrete(labels = age_labels) + # Altersgruppen korrekt anzeigen
   theme_minimal()
+```
+
+## Does Gender affect the spending behaviour?
+Next, we wanted to see how the spending behaviour differs between genders.
+```{r, echo=FALSE}
+# Daten laden
+gifts_gender <- read_csv("./data/tidytuesday-2024-02-13/gifts_gender.csv")
+
+# Labels für die Kategorien festlegen
+category_labels <- c("Candy", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing", "GiftCards")
+gifts_gender_long <- gifts_gender %>%
+  pivot_longer(cols = -Gender, names_to = "Category", values_to = "Value")
+
+# Einträge, die keiner der Kategorien entsprechen, entfernen
+gifts_gender_long <- gifts_gender_long %>%
+  filter(!is.na(Category) & Category %in% category_labels)
+
+# Plot erstellen
+ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_text(aes(label = paste0(round(Value, 1), "%")), position = position_dodge(width = 0.9), vjust = -0.5) +
+  scale_x_discrete(labels = category_labels) +
+  scale_fill_manual(values = c("Men" = "#4989ff", "Women" = "#fd4848")) +
+  labs(title = "Average % Spending by Gender and Category", x = "Category", y = "Average % Spending") +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_line(color = "#c2c2c2", size = 0.25),
+    panel.grid.minor = element_line(color = "#787878", size = 0.25),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.ticks.y = element_blank(),
+    axis.title.x = element_text(margin = margin(t = 10)),
+    axis.text.x = element_text(margin = margin(t = -20))
+  )
 ```
 
 ## How are the Spendings distributed to different items on Valentines day?
@@ -94,7 +128,7 @@ correlation_df <- data.frame(
 
 # Plot der Korrelationen
 ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
-  geom_bar(stat = "identity", fill = "skyblue", width=0.3) +
+  geom_bar(stat = "identity", fill = "skyblue", width = 0.3) +
   labs(
     title = "Korrelation zwischen Age und verschiedenen Ausgabenkategorien",
     x = "Ausgabenkategorie",
@@ -114,8 +148,7 @@ longer <- only_categories |> pivot_longer(!Year, names_to = "Category", values_t
 category_labels <- levels(as_factor(longer$Category))
 longer$Category <- factor(longer$Category, levels = category_labels)
 ggplot(longer, aes(x = Year, y = Percentage, fill = Category)) +
-    geom_bar(stat = "identity", position = "fill", width = 0.5) +
-    labs(title = "Average % Spending by Category", x = "Category", y = "Average % Spending") +
-    theme_minimal()
-
+  geom_bar(stat = "identity", position = "fill", width = 0.5) +
+  labs(title = "Average % Spending by Category", x = "Category", y = "Average % Spending") +
+  theme_minimal()
 ```
