@@ -40,11 +40,17 @@ ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
     color = "Legend"
   ) +
   scale_x_discrete(labels = age_labels) + # Altersgruppen korrekt anzeigen
-  theme_minimal()
+  theme_minimal() + 
+    theme(
+    panel.grid.major = element_line(color = "#999999", size = 0.25),
+    panel.grid.minor = element_line(color = "#999999", size = 0.25)
+    )
 ```
 
 ## Does Gender affect the spending behaviour?
+
 Next, we wanted to see how the spending behaviour differs between genders.
+
 ```{r, echo=FALSE}
 # Labels für die Kategorien festlegen
 category_labels <- c("Candy", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing", "GiftCards")
@@ -137,6 +143,7 @@ ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
 ```
 
 ## Historical spending by category
+
 ```{r, echo=FALSE}
 historical_spending_labels <- levels(as_factor(historical_spending$Year))
 historical_spending$Year <- factor(historical_spending$Year, levels = historical_spending_labels)
