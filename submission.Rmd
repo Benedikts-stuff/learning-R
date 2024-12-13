@@ -46,7 +46,7 @@ ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
 
 It might also be interesting to see which items are the most frequently bought ones on Valentines day. Therefore we plot how much percent each item contributes to the total spendings.
 
-```{echo=FALSE}
+```{r, echo=FALSE}
 # Daten für das Kuchendiagramm
 spending_categories <- tibble(
   Category = c("Candy", "Flowers", "Jewelry", "Greeting Cards", "Evening Out", "Clothing", "Gift Cards"),
@@ -77,7 +77,7 @@ ggplot(spending_categories, aes(x = "", y = Percent, fill = Category)) +
 
 Now lets look at the correlation between the Age Attribute and different items on valentines day:
 
-```{echo=FALSE}
+```{r, echo=FALSE}
 # Erstellen einer Liste mit den Variablen, die wir untersuchen möchten
 variables <- c("Candy", "GiftCards", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing")
 
@@ -104,7 +104,7 @@ ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
 ```
 
 ## Historical spending by category
-```{echo=FALSE}
+```{r, echo=FALSE}
 historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spending.csv")
 historical_spending_labels <- levels(as_factor(historical_spending$Year))
 historical_spending$Year <- factor(historical_spending$Year, levels = historical_spending_labels)
