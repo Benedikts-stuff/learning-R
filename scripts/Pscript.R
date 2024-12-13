@@ -6,11 +6,6 @@ historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spendi
 historical_spending_labels <- levels(as_factor(historical_spending$Year))
 historical_spending$Year <- factor(historical_spending$Year, levels = historical_spending_labels)
 
-ggplot(historical_spending, aes(x = historical_spending$Year, y = historical_spending$PerPerson), group = 1) +
-    geom_bar(stat = "identity", position = "dodge", width=0.5) +
-    labs(title = "Average Spending on Valentine's Day by Year", x = "Year", y = "Average Spending per Person") +
-    theme_minimal()
-
 only_categories <- historical_spending |> select(-any_of(c("PercentCelebrating", "PerPerson")))
 
 #only_categories <- historical_spending |> select(c("Year", "Candy", "Flowers", "Jewelry"))
@@ -23,3 +18,5 @@ ggplot(longer, aes(x = Year, y = Percentage, fill = Category)) +
     geom_bar(stat = "identity", position = "fill", width = 0.5) +
     labs(title = "Average % Spending by Category", x = "Category", y = "Average % Spending") +
     theme_minimal()
+
+
