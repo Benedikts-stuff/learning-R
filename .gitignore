@@ -51,3 +51,6 @@ rsconnect/
 
 # All submissions
 *.html
+
+# macOS
+.DS_Store
