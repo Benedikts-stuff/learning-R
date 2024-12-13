@@ -1,6 +1,25 @@
+---
+title: "rmd_submission"
+output: html_document
+date: "2024-12-13"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(forcats)
 library(readxl)
+```
+
+## Introdcution
+
+in this R-Markdown document we investigate the Valentines day Data-sat from the tidy-tuesday challenge.
+
+## Does Age affect the spending behaviour?
+
+First, we want to investigate the connection bewteen thedifferent Age groups and their spending behaviour on Valentines day. Therefore we Plot how much percent of each Agegroup spend X amount of money on valentines day. Then we fit a linear Model to this data to if there is a linear connection bewteen the Age and the amount of people from this age group spending money on Valentines day.
+
+```{r pressure, echo=FALSE}
 
 # Daten laden
 gifts_age <- read_csv("./data/tidytuesday-2024-02-13/gifts_age.csv")
@@ -21,7 +40,13 @@ ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
   ) +
   scale_x_discrete(labels = age_labels) +  # Altersgruppen korrekt anzeigen
   theme_minimal()
+```
 
+## How are the Spendings distributed to different items on Valentines day?
+
+It might also be interesting to see which items are the most frequently bought ones on Valentines day. Therefore we plot how much percent each item contributes to the total spendings.
+
+```{r pressure, echo=FALSE}
 # Daten für das Kuchendiagramm
 spending_categories <- tibble(
   Category = c("Candy", "Flowers", "Jewelry", "Greeting Cards", "Evening Out", "Clothing", "Gift Cards"),
@@ -46,10 +71,13 @@ ggplot(spending_categories, aes(x = "", y = Percent, fill = Category)) +
   ) +
   theme_void() +
   theme(legend.position = "right")
+```
 
+## Correlation between Age and different Item Purchases
 
+Now lets look at the correlation between the Age Attribute and different items on valentines day:
 
-
+```{r pressure, echo=FALSE}
 # Erstellen einer Liste mit den Variablen, die wir untersuchen möchten
 variables <- c("Candy", "GiftCards", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing")
 
@@ -73,3 +101,4 @@ ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
     y = "Korrelationskoeffizient"
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
