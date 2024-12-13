@@ -22,12 +22,13 @@ ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
     labs(title = "Average % Spending by Gender and Category", x = "Category", y = "Average % Spending") +
     theme_minimal() +
     theme(
-        panel.grid.major = element_line(color = "#c2c2c2", size = 0.25),
-        panel.grid.minor = element_line(color = "#787878", size = 0.25),
+        panel.grid.major = element_line(color = "#c2c2c2"),
+        panel.grid.minor = element_line(color = "#787878"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         axis.ticks.x = element_blank(),
         axis.ticks.y = element_blank(),
         axis.title.x = element_text(margin = margin(t = 10)),
-        axis.text.x = element_text(margin = margin(t = -20))
+        axis.title.y = element_text(margin = margin(r = 10)),
+        axis.text.x = element_text(margin = margin(t = -10))
     )
