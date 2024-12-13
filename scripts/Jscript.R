@@ -20,6 +20,7 @@ ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
     scale_x_discrete(labels = category_labels) +
     scale_fill_manual(values = c("Men" = "#4989ff", "Women" = "#fd4848")) +
     labs(title = "Average % Spending by Gender and Category", x = "Category", y = "Average % Spending") +
+    theme_minimal() +
     theme(
         panel.grid.major = element_line(color = "#c2c2c2", size = 0.25),
         panel.grid.minor = element_line(color = "#787878", size = 0.25),
