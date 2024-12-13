@@ -4,14 +4,10 @@ library(readxl)
 
 gifts_age <- read_csv("./data/tidytuesday-2024-02-13/gifts_age.csv")
 historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spending.csv")
-
-#### wieviel wird ausgegeben pro altersgruppe
-
-#### wieviel wird ausgegeben pro geschlecht
-library(tidyverse)
-library(forcats)
-library(readxl)
 gifts_gender <- read_csv("./data/tidytuesday-2024-02-13/gifts_gender.csv")
+
+
+### basic plot
 category_labels <- c("Candy", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing", "GiftCards")
 gifts_gender_long <- gifts_gender %>%
     pivot_longer(cols = -Gender, names_to = "Category", values_to = "Value")
@@ -23,7 +19,7 @@ ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
     geom_bar(stat = "identity", position = "dodge") +
     geom_text(aes(label = paste0(round(Value, 1), "%")), position = position_dodge(width = 0.9), vjust = -0.5) +
     scale_x_discrete(labels = category_labels) +
-    scale_fill_manual(values = c("Men" = "#1f5fff", "Women" = "#ff2f24")) +
+    scale_fill_manual(values = c("Men" = "#4989ff", "Women" = "#fd4848")) +
     labs(title = "Average % Spending by Gender and Category", x = "Category", y = "Average % Spending") +
     theme(axis.text.x = element_text(margin = margin(t = -20))) +
     theme(
@@ -35,5 +31,3 @@ ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
         axis.ticks.y = element_blank()
     ) +
     theme(axis.title.x = element_text(margin = margin(t = 10)))
-
-#### über die Jahre: wie unterscheiden sich Altersgruppen ?
