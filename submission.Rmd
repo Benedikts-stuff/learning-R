@@ -236,6 +236,7 @@ ggplot(longer, aes(x = Year, y = Spending, shape = Category, color = Category)) 
 Interestingly, the popularity of Jewelery, Clothing, Candy and Gift cards increased significantly while the ones of Greeting Cards and Evenings are somewhat the same. \## Correlation between Age and different Item Purchases
 
 ## Correlation between age and item popularity
+
 To see if the spending behavior changes with increasing age looking at certain items we plot the correlation of the Age column with each of the item columns.
 
 ```{r, echo=FALSE}
