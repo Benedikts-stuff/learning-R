@@ -13,7 +13,6 @@ library(ggplot2)
 library(scales)
 library(gridExtra)
 
-# Daten laden
 gifts_age <- read_csv("./data/tidytuesday-2024-02-13/gifts_age.csv", show_col_types = FALSE)
 gifts_gender <- read_csv("./data/tidytuesday-2024-02-13/gifts_gender.csv", , show_col_types = FALSE)
 historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spending.csv", show_col_types = FALSE)
@@ -22,80 +21,68 @@ data <- read.csv("./data/Covid-19-data/us_covid19_daily.csv")
 
 ## Introdcution
 
-During the Covid-19 Pandemic people in the US were severely restricted their social life. The Frequency and experience of meeting friends and family dropped, dating, or just going grocery shopping was heavily impaired. To see how these restrictions impacted the spending behavior of people we take a look the spendings of people on Valentines day to see if the pandemic led to an increase in spendings for others. We will then analyze What gits were the most popular and how age is related to what and how much people buy on Valentines day over the course of 12 years (2010 - 2022).
+During the COVID-19 Pandemic people in the US were severely restricted their social life. The Frequency and experience of meeting friends and family dropped, dating, or just going grocery shopping was heavily impaired. To see how these restrictions impacted the spending behavior of people we take a look the spendings of people on Valentines day to see if the pandemic led to an increase in spendings for others. We will then analyze What gits were the most popular and how age is related to what and how much people buy on Valentines day over the course of 12 years (2010 - 2022).
 
 ## How does the Covid-19 Pandemic impact the behaviour on Valentines day
 
 ```{r, echo=FALSE}
-# Ungültige oder fehlende Datumswerte entfernen
 data <- data[!is.na(data$date) & data$date != "", ]
-
-# Datum als Dateiformat konvertieren
 data$date <- as.Date(as.character(data$date), format="%Y%m%d")
-
-# Daten nach Datum sortieren
 data <- data[order(data$date), ]
-
-# Plot erstellen: Positive Fälle pro Tag
 ggplot(data, aes(x = date, y = positive)) +
   geom_line(color = "blue") +
-  scale_x_date(date_breaks = "1 month", date_labels = "%b %Y") + # Monatliche Achse anzeigen
-  labs(title = "COVID-19 Fälle pro Tag in den USA",
-       x = "Datum",
-       y = "Positive Fälle") +
+  scale_x_date(date_breaks = "1 month", date_labels = "%b %Y") + 
+  labs(title = "COVID-19 cases per day in the USA",
+       x = "Date",
+       y = "Positive Cases") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) # x-Achse schräg stellen
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-We observe that the number of infected people per day increases rapidly in the year 2020. Let's now have a look at the spending behaviour at this point in time.
+We observe that the number of positive tested people per day increases rapidly in the year 2020. Let's now have a look at the spending behaviour at this point in time.
 
 ```{r, echo=FALSE}
-# Plot 1: Prozent der Leute, die feiern
 g1 <- ggplot(historical_spending, aes(x = Year, y = PercentCelebrating)) +
   geom_line(color = "blue", size = 1) +
   geom_point(color = "blue") +
   geom_smooth(method = "lm", color = "red", linetype = "dashed") +
-  labs(title = "Prozent der Feiernden",
-       x = "Jahr",
-       y = "Prozent") +
+  labs(title = "Percent people celebrating",
+       x = "Year",
+       y = "Percentage") +
   theme_minimal()
 
-# Plot 2: Durchschnittlicher Ausgabenbetrag pro Person
 g2 <- ggplot(historical_spending, aes(x = Year, y = PerPerson)) +
   geom_line(color = "green", size = 1) +
   geom_point(color = "green") +
   geom_smooth(method = "lm", color = "red", linetype = "dashed") +
-  labs(title = "Durchschnittliche Ausgaben pro Person",
-       x = "Jahr",
-       y = "Betrag in $") +
+  labs(title = "Average amount spent per Person",
+       x = "Year",
+       y = "Amount in $") +
   theme_minimal()
 
-# Beide Plots nebeneinander anzeigen
 grid.arrange(g1, g2, ncol = 2)
 ```
 
-While we can see a clear downwards trend in the Percentage of people celebrating Valentines day before the pandemic, we can see a significant local peek at the year 2020 in terms of the percentage of people celebrating Valentines day in the US. We can even observe a global peek (in the range fo the collected data) ob the average amount people spent on Valentines day in the year 2020 and a clear upwards trend afterwards, following the trend before the pandemic has started. So even though over less and less people celebrate Valentines day over since 2010, the Covid-19 pandemic influenced the spending behavior and the amount of people celebrating positively.
+While we can see a clear downwards trend in the Percentage of people celebrating Valentines day before the pandemic, we can see a significant local peek at the year 2020 in terms of the percentage of people celebrating Valentines day in the US. We can even observe a global peek (in the range fo the collected data) ob the average amount people spent on Valentines day in the year 2020 and a clear upwards trend afterwards, following the trend before the pandemic has started. So even though over less and less people celebrate Valentines day over since 2010, the COVID-19 pandemic influenced the spending behavior and the amount of people celebrating positively.
 
 ## Does Age affect the spending behaviour?
 
-Now, we want to investigate the connection between the different Age groups and their spending behavior on Valentines day. Therefore we Plot the percentage of each Age group with how much percent of people from this grup spent money on valentines day. Then we fit a linear Model to this data to see if there is a linear connection between the Age and the amount of people from an age group spending money on Valentines day.
+Now, we want to investigate the connection between the different Age groups and their spending behavior on Valentines day. Therefore we Plot the percentage of each Age group with how much percent of people from this group spent money on valentines day. Then we fit a linear Model to this data to see if there is a linear connection between the Age and the amount of people from an age group spending money on Valentines day.
 
 ```{r, echo=FALSE}
-# Sicherstellen, dass "Age" als Faktor behandelt wird und die Labels korrekt sind
 age_labels <- levels(as_factor(gifts_age$Age))
 gifts_age$Age <- factor(gifts_age$Age, levels = age_labels)
 
-# Plot: Altersgruppen vs. SpendingCelebrating
 ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
-  geom_line(aes(color = "Data"), size = 1) + # Linie für die Daten
-  geom_smooth(aes(color = "Linear Model"), method = "lm", se = FALSE) + # Lineares Modell hinzufügen
+  geom_line(aes(color = "Data"), size = 1) +
+  geom_smooth(aes(color = "Linear Model"), method = "lm", se = FALSE) +
   labs(
     title = "Spending Behavior vs. Age",
     x = "Age Groups",
     y = "Percent Spending Money on Valentine's Day",
     color = "Legend"
   ) +
-  scale_x_discrete(labels = age_labels) + # Altersgruppen korrekt anzeigen
+  scale_x_discrete(labels = age_labels) +
   theme_minimal() +
   theme(
     panel.grid.major = element_line(color = "#999999", size = 0.25),
@@ -106,23 +93,20 @@ ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
 
 ```
 
-We can clearly see a downwards trend and the linear line fits the data pretty neat. That means that there is a clear, linear connection between age and spending behaviour. This connection is a nearly perfect negative correlation. The older the people the less they tend to spend money on Valentines day.
+We can clearly see a downwards trend and the linear line fits the data pretty neat. That means that there is a clear, linear connection between age and spending behavior. This connection is a nearly perfect negative correlation. The older the people the less they tend to spend money on Valentines day.
 
 ## Does Gender affect the spending behaviour?
 
 To further investigate the spending behavior on Valentines day we can look at what percentage of each gender spent money on Valentines day and how this is distributed over different items.
 
 ```{r, echo=FALSE}
-# Labels für die Kategorien festlegen
 category_labels <- c("Candy", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing", "GiftCards")
 gifts_gender_long <- gifts_gender %>%
   pivot_longer(cols = -Gender, names_to = "Category", values_to = "Value")
 
-# Einträge, die keiner der Kategorien entsprechen, entfernen
 gifts_gender_long <- gifts_gender_long %>%
   filter(!is.na(Category) & Category %in% category_labels)
 
-# Plot erstellen
 ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
   geom_bar(stat = "identity", position = "dodge") +
   geom_text(aes(label = paste0(round(Value, 1), "%")), position = position_dodge(width = 0.9), vjust = -0.5) +
@@ -143,12 +127,13 @@ ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
   )
 ```
 
-While women predominantly spend their money on candy, clothing, and jewelry, men are more likely to spend on greeting cards, candy, and clothing. Although women outspend men in most item categories, the percentage gap in categories where men spend more is notably larger compared to the gap in categories where women spend more. That mean their are certains Items men like to buy significanlty more than women and those are Greeting Cards and GiftCards. \## How are the Spendings distributed to different items on Valentines day?
+While women predominantly spend their money on candy, clothing, and jewelry, men are more likely to spend on greeting cards, candy, and clothing. Although women outspend men in most item categories, the percentage gap in categories where men spend more is notably larger compared to the gap in categories where women spend more. That means that there are certain Items men like to buy significantly more than women and those are Greeting Cards and Gift Cards. 
+
+## How are the Spendings distributed to different items on Valentines day?
 
 It might also be interesting to see which items are the most frequently bought ones on Valentines day. Therefore we plot how much each item contributes to the total spendings on items.
 
 ```{r, echo=FALSE}
-# Daten für das Kuchendiagramm
 spending_categories <- tibble(
   Category = c("Candy", "Flowers", "Jewelry", "Greeting Cards", "Evening Out", "Clothing", "Gift Cards"),
   Percent = c(
@@ -162,7 +147,6 @@ spending_categories <- tibble(
   )
 )
 
-# Kuchendiagramm
 ggplot(spending_categories, aes(x = "", y = Percent, fill = Category)) +
   geom_col(width = 1, color = "white") +
   coord_polar(theta = "y") +
@@ -176,10 +160,9 @@ ggplot(spending_categories, aes(x = "", y = Percent, fill = Category)) +
 
 ## Trends of Spending by Category
 
-To see how the above distribution changes over the years we can look at the follwing plot.
+To see how the above distribution changes over the years we can look at the following plot.
 
 ```{r, echo=FALSE}
-# Daten vorbereiten
 historical_spending_labels <- levels(as_factor(historical_spending$Year))
 historical_spending$Year <- factor(historical_spending$Year, levels = historical_spending_labels)
 
@@ -188,7 +171,6 @@ longer <- only_categories |> pivot_longer(!Year, names_to = "Category", values_t
 category_labels <- levels(as_factor(longer$Category))
 longer$Category <- factor(longer$Category, levels = category_labels)
 
-# Plot 1: Gestapeltes Balkendiagramm
 bar_plot <- ggplot(longer, aes(x = Year, y = Percentage, fill = Category)) +
   geom_bar(stat = "identity", position = "fill", width = 0.5) +
   labs(title = "Average % Spending by Category", 
@@ -196,7 +178,6 @@ bar_plot <- ggplot(longer, aes(x = Year, y = Percentage, fill = Category)) +
        y = "Average % Spending") +
   theme_minimal()
 
-# Plot 2: Linienplot mit Trendlinien
 line_plot <- ggplot(longer, aes(x = Year, y = Percentage, color = Category, group = Category)) +
   geom_line(size = 1) +
   geom_point(size = 2) +
@@ -207,13 +188,12 @@ line_plot <- ggplot(longer, aes(x = Year, y = Percentage, color = Category, grou
        color = "Category") +
   theme_minimal()
 
-# Beide Plots nebeneinander anzeigen
 grid.arrange(bar_plot, line_plot, ncol = 1)
 ```
 
 The trend lines correspond to the percentages in the "Average % Spending by Category".
 
-To make the trend lines more visible we exclude the actual data points to recieve the below plot.
+To make the trend lines more visible we exclude the actual data points to receive the below plot.
 
 ```{r, echo=FALSE}
 historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spending.csv")
@@ -227,40 +207,36 @@ ggplot(longer, aes(x = Year, y = Spending, shape = Category, color = Category)) 
     geom_smooth(method = "lm", se = FALSE) +
     labs(title = "Trends of Spending by Category", x = "Year", y = "Average Spending in $") +
     scale_x_continuous(
-    breaks = c(2010, 2012, 2014, 2016, 2018, 2020),   # Festlegung der Positionen der Labels
-    labels = c("2010", "2012", "2014", "2016", "2018", "2020")  # Eigene Labels
+    breaks = c(2010, 2012, 2014, 2016, 2018, 2020), 
+    labels = c("2010", "2012", "2014", "2016", "2018", "2020")
   ) +
     theme_minimal()
 ```
 
-Interestingly, the popularity of Jewelery, Clothing, Candy and Gift cards increased significantly while the ones of Greeting Cards and Evenings are somewhat the same. \## Correlation between Age and different Item Purchases
+Interestingly, the popularity of Jewelry, Clothing, Candy and Gift cards increased significantly while the ones of Greeting Cards and Evenings are somewhat the same. 
 
 ## Correlation between age and item popularity
 
 To see if the spending behavior changes with increasing age looking at certain items we plot the correlation of the Age column with each of the item columns.
 
 ```{r, echo=FALSE}
-# Erstellen einer Liste mit den Variablen, die wir untersuchen möchten
 variables <- c("Candy", "GiftCards", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing")
 
-# Korrelationen zwischen "Age" und den anderen Variablen berechnen
 correlations <- sapply(variables, function(var) {
   cor(as.numeric(as.factor(gifts_age$Age)), gifts_age[[var]], use = "complete.obs")
 })
 
-# Erstellen eines Dataframes für die Korrelationswerte
 correlation_df <- data.frame(
   Variable = variables,
   Correlation = correlations
 )
 
-# Plot der Korrelationen
 ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
   geom_bar(stat = "identity", fill = "skyblue", width = 0.3) +
   labs(
-    title = "Korrelation zwischen Age und verschiedenen Items",
-    x = "Ausgabenkategorie",
-    y = "Korrelationskoeffizient"
+    title = "Correlation between Age and Items",
+    x = "Item Category",
+    y = "Correlation coefficient"
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
