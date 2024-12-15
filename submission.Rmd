@@ -1,5 +1,5 @@
 ---
-title: "rmd_submission"
+title: "Analyzing the Impact of Demographics and the COVID-19 Pandemic on Valentine's Day Spending Behavior"
 output: html_document
 date: "2024-12-13"
 ---
@@ -19,11 +19,11 @@ historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spendi
 data <- read.csv("./data/Covid-19-data/us_covid19_daily.csv")
 ```
 
-## Introdcution
+## Introduction
 
-During the COVID-19 Pandemic people in the US were severely restricted their social life. The Frequency and experience of meeting friends and family dropped, dating, or just going grocery shopping was heavily impaired. To see how these restrictions impacted the spending behavior of people we take a look the spendings of people on Valentines day to see if the pandemic led to an increase in spendings for others. We will then analyze What gits were the most popular and how age is related to what and how much people buy on Valentines day over the course of 12 years (2010 - 2022).
+During the COVID-19 pandemic, people in the U.S. faced severe restrictions on their social lives. The frequency of interactions with friends and family decreased, and activities such as dating or even grocery shopping were significantly impacted. To understand how these restrictions affected consumer spending, we will examine spending patterns on Valentine's Day to determine whether the pandemic led to increased spending. Additionally, we will analyze the most popular gifts and explore how age influences both the types of gifts purchased and the amount spent on Valentine's Day over a 12-year period (2010–2022).
 
-## How does the Covid-19 Pandemic impact the behaviour on Valentines day
+## How Does the Covid-19 Pandemic Impact the Behaviour on Valentines Day
 
 ```{r, echo=FALSE}
 data <- data[!is.na(data$date) & data$date != "", ]
@@ -39,7 +39,7 @@ ggplot(data, aes(x = date, y = positive)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-We observe that the number of positive tested people per day increases rapidly in the year 2020. Let's now have a look at the spending behaviour at this point in time.
+We observed a rapid increase in the number of people testing positive per day during 2020. Let us now examine the spending behavior during this period.
 
 ```{r, echo=FALSE}
 g1 <- ggplot(historical_spending, aes(x = Year, y = PercentCelebrating)) +
@@ -63,11 +63,11 @@ g2 <- ggplot(historical_spending, aes(x = Year, y = PerPerson)) +
 grid.arrange(g1, g2, ncol = 2)
 ```
 
-While we can see a clear downwards trend in the Percentage of people celebrating Valentines day before the pandemic, we can see a significant local peek at the year 2020 in terms of the percentage of people celebrating Valentines day in the US. We can even observe a global peek (in the range fo the collected data) ob the average amount people spent on Valentines day in the year 2020 and a clear upwards trend afterwards, following the trend before the pandemic has started. So even though over less and less people celebrate Valentines day over since 2010, the COVID-19 pandemic influenced the spending behavior and the amount of people celebrating positively.
+Before the pandemic, there was a clear downward trend in the percentage of people celebrating Valentine's Day. However, in 2020, a notable local peak is observed in the percentage of people in the U.S. celebrating the holiday. Additionally, there is a global peak (within the range of the collected data) in the average amount spent on Valentine's Day in 2020. Following this, a clear upward trend emerges, aligning with the pre-pandemic trajectory. Despite the overall decline in the number of people celebrating Valentine's Day since 2010, the COVID-19 pandemic had a positive impact on both spending behavior and the proportion of people participating in the celebration.
 
-## Does Age affect the spending behaviour?
+## Does Age Affect the Spending Behaviour?
 
-Now, we want to investigate the connection between the different Age groups and their spending behavior on Valentines day. Therefore we Plot the percentage of each Age group with how much percent of people from this group spent money on valentines day. Then we fit a linear Model to this data to see if there is a linear connection between the Age and the amount of people from an age group spending money on Valentines day.
+We now aim to explore the relationship between different age groups and their spending behavior on Valentine's Day. To do this, we plot the percentage of individuals in each age group against the proportion of people within that group who spent money on Valentine's Day. Next, we fit a linear model to the data to determine if there is a linear correlation between age and the percentage of individuals spending money on Valentine's Day.
 
 ```{r, echo=FALSE}
 age_labels <- levels(as_factor(gifts_age$Age))
@@ -93,11 +93,11 @@ ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
 
 ```
 
-We can clearly see a downwards trend and the linear line fits the data pretty neat. That means that there is a clear, linear connection between age and spending behavior. This connection is a nearly perfect negative correlation. The older the people the less they tend to spend money on Valentines day.
+We can clearly observe a downward trend, and the linear model aligns well with the data. This indicates a strong linear relationship between age and spending behavior, characterized by an almost perfect negative correlation. In other words, the older people are, the less likely they are to spend money on Valentine's Day.
 
 ## Does Gender affect the spending behaviour?
 
-To further investigate the spending behavior on Valentines day we can look at what percentage of each gender spent money on Valentines day and how this is distributed over different items.
+To further analyze spending behavior on Valentine's Day, we can examine the percentage of each gender that spent money on the occasion and how their spending is distributed across different items.
 
 ```{r, echo=FALSE}
 category_labels <- c("Candy", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing", "GiftCards")
@@ -127,11 +127,11 @@ ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
   )
 ```
 
-While women predominantly spend their money on candy, clothing, and jewelry, men are more likely to spend on greeting cards, candy, and clothing. Although women outspend men in most item categories, the percentage gap in categories where men spend more is notably larger compared to the gap in categories where women spend more. That means that there are certain Items men like to buy significantly more than women and those are Greeting Cards and Gift Cards. 
+While women predominantly spend their money on candy, clothing, and jewelry, men are more likely to spend on greeting cards, candy, and clothing. Although women outspend men in most categories, the percentage gap in the categories where men spend more is significantly larger compared to those where women lead. This indicates that men have a strong preference for certain items, particularly greeting cards and gift cards, which they purchase in noticeably higher proportions than women.
 
-## How are the Spendings distributed to different items on Valentines day?
+## How Are The Spendings Distributed To Different Items On Valentines Day?
 
-It might also be interesting to see which items are the most frequently bought ones on Valentines day. Therefore we plot how much each item contributes to the total spendings on items.
+It may also be interesting to explore which items are the most frequently purchased on Valentine's Day. To do this, we plot the contribution of each item to the total spending on Valentine's Day.
 
 ```{r, echo=FALSE}
 spending_categories <- tibble(
@@ -160,7 +160,7 @@ ggplot(spending_categories, aes(x = "", y = Percent, fill = Category)) +
 
 ## Trends of Spending by Category
 
-To see how the above distribution changes over the years we can look at the following plot.
+This analysis explores consumer spending trends from 2010 to 2022 across categories like Candy, Flowers, Jewelry, Greeting Cards, Evenings Out, Clothing, and Gift Cards. The stacked bar chart shows the average percentage of spending by category each year, while the line chart highlights changes in spending patterns over time, offering insights into evolving consumer preferences.
 
 ```{r, echo=FALSE}
 historical_spending_labels <- levels(as_factor(historical_spending$Year))
@@ -191,9 +191,9 @@ line_plot <- ggplot(longer, aes(x = Year, y = Percentage, color = Category, grou
 grid.arrange(bar_plot, line_plot, ncol = 1)
 ```
 
-The trend lines correspond to the percentages in the "Average % Spending by Category".
+The trend lines correspond to the percentages in the "Average % Spending by Category."
 
-To make the trend lines more visible we exclude the actual data points to receive the below plot.
+To enhance the visibility of the trend lines, we exclude the actual data points, resulting in the plot below.
 
 ```{r, echo=FALSE}
 historical_spending <- read_csv("./data/tidytuesday-2024-02-13/historical_spending.csv")
@@ -213,11 +213,11 @@ ggplot(longer, aes(x = Year, y = Spending, shape = Category, color = Category)) 
     theme_minimal()
 ```
 
-Interestingly, the popularity of Jewelry, Clothing, Candy and Gift cards increased significantly while the ones of Greeting Cards and Evenings are somewhat the same. 
+Interestingly, the popularity of jewelry, clothing, candy, and gift cards has increased significantly, while the popularity of greeting cards and evenings has remained relatively stable.
 
-## Correlation between age and item popularity
+## Correlation Between Age And Item Popularity
 
-To see if the spending behavior changes with increasing age looking at certain items we plot the correlation of the Age column with each of the item columns.
+To examine whether spending behavior changes with increasing age for specific items, we plot the correlation between the age column and each of the item columns.
 
 ```{r, echo=FALSE}
 variables <- c("Candy", "GiftCards", "Flowers", "Jewelry", "GreetingCards", "EveningOut", "Clothing")
@@ -241,4 +241,4 @@ ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-While most items actually decrease in popularity with increasing age, Greeting card become much more popular.
+While most items decrease in popularity with increasing age, greeting cards become significantly more popular.
