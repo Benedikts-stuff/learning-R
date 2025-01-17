@@ -242,3 +242,13 @@ ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
 ```
 
 While most items decrease in popularity with increasing age, greeting cards become significantly more popular.
+
+
+## Conclusion
+
+In conclusion, the COVID-19 pandemic had a notable impact on Valentine's Day spending behavior, leading to an increase in both the percentage of people celebrating the holiday and the average amount spent per person. Age plays a significant role in spending behavior, with older individuals less likely to spend money on Valentine's.
+
+## Future Outlook
+
+Future studies could explore the impact of the COVID-19 pandemic on other holidays and consumer behaviors. Additionally, analyzing the influence of other factors, such as income and relationship status, on Valentine's Day spending could provide further insights into consumer behavior trends.
+
