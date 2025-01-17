@@ -37,6 +37,8 @@ NRF has surveyed consumers about how they plan to celebrate Valentine’s Day an
 
 The survey of 7,728 U.S. adult consumers was conducted January 3-11 and has a margin of error of plus or minus 1.1 percentage points.
 
+The data originates from COVID-19 Tracking project and NYTimes. It contains information about the number of cases for 50 US states.
+
 ```{r, echo=FALSE}
 get_column_info <- function(df, dataset_name = "Data") {
   column_info <- data.frame(
