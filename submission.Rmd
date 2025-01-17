@@ -29,6 +29,26 @@ For this research project we made use of the following datasets:
 
 - [Spending behaviour on Valentines day](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-02-13/readme.md)
 
+## Data Used
+
+```{r, echo=FALSE}
+# Tabelle mit Spaltennamen und Datentypen erstellen
+get_column_info <- function(df) {
+  column_info <- data.frame(
+    Attribute = colnames(df),  # Spaltennamen als eigene Spalte
+    Type = sapply(df, class),  # Datentypen jeder Spalte
+    row.names = NULL 
+  )
+
+}
+
+# Ausgabe der Tabelle
+print(get_column_info(gifts_age))
+print(get_column_info(gifts_gender))
+print(get_column_info(historical_spending))
+print(get_column_info(data))
+```
+
 ## How Does the Covid-19 Pandemic Impact the Behaviour on Valentines Day
 
 ```{r, echo=FALSE}
