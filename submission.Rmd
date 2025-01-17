@@ -59,7 +59,8 @@ ggplot(data, aes(x = date, y = positive)) +
   scale_x_date(date_breaks = "1 month", date_labels = "%b %Y") + 
   labs(title = "COVID-19 cases per day in the USA",
        x = "Date",
-       y = "Positive Cases") +
+       y = "Positive Cases",
+       caption = "Data source: COVID-19 cases in 2020") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
@@ -82,7 +83,8 @@ g2 <- ggplot(historical_spending, aes(x = Year, y = PerPerson)) +
   geom_smooth(method = "lm", color = "red", linetype = "dashed") +
   labs(title = "Average amount spent per Person",
        x = "Year",
-       y = "Amount in $") +
+       y = "Amount in $",
+       caption = "Data source: TidyTuesday 2024-02-13, Historical Spending Dataset") +
   theme_minimal()
 
 grid.arrange(g1, g2, ncol = 2)
@@ -105,7 +107,8 @@ ggplot(gifts_age, aes(x = Age, y = SpendingCelebrating, group = 1)) +
     title = "Spending Behavior vs. Age",
     x = "Age Groups",
     y = "Percent Spending Money on Valentine's Day",
-    color = "Legend"
+    color = "Legend",
+    caption = "Data source: TidyTuesday 2024-02-13, Gifts-Age Dataset"
   ) +
   scale_x_discrete(labels = age_labels) +
   theme_minimal() +
@@ -137,7 +140,8 @@ ggplot(gifts_gender_long, aes(x = Category, y = Value, fill = Gender)) +
   geom_text(aes(label = paste0(round(Value, 1), "%")), position = position_dodge(width = 0.9), vjust = -0.5) +
   scale_x_discrete(labels = category_labels) +
   scale_fill_manual(values = c("Men" = "#4989ff", "Women" = "#fd4848")) +
-  labs(title = "Average % Spending by Gender and Category", x = "Category", y = "Average % Spending") +
+  labs(title = "Average % Spending by Gender and Category", x = "Category", y = "Average % Spending",
+  caption = "Data source: TidyTuesday 2024-02-13, Gifts-Gender Dataset") +
   theme_minimal() +
   theme(
     panel.grid.major = element_line(color = "#c2c2c2"),
@@ -177,7 +181,8 @@ ggplot(spending_categories, aes(x = "", y = Percent, fill = Category)) +
   coord_polar(theta = "y") +
   labs(
     title = "Percent Spending by Category",
-    fill = "Category"
+    fill = "Category",
+    caption = "Data source: TidyTuesday 2024-02-13, Gifts-Age Dataset"
   ) +
   theme_void() +
   theme(legend.position = "right")
@@ -211,7 +216,7 @@ line_plot <- ggplot(longer, aes(x = Year, y = Percentage, color = Category, grou
        x = "Year", 
        y = "Percentage", 
        color = "Category",
-       caption = "Data source: TidyTuesday 2024-02-13") +
+       caption = "Data source: TidyTuesday 2024-02-13, Historical Spending Dataset") +
   theme_minimal()
 
 grid.arrange(bar_plot, line_plot, ncol = 1)
@@ -231,7 +236,7 @@ longer$Category <- factor(longer$Category, levels = category_labels)
 ggplot(longer, aes(x = Year, y = Spending, shape = Category, color = Category)) +
     geom_point() +
     geom_smooth(method = "lm", se = FALSE) +
-    labs(title = "Trends of Spending by Category", x = "Year", y = "Average Spending in $", caption = "Data source: TidyTuesday 2024-02-13") +
+    labs(title = "Trends of Spending by Category", x = "Year", y = "Average Spending in $", caption = "Data source: TidyTuesday 2024-02-13, Historical Spending Dataset") +
     scale_x_continuous(
     breaks = c(2010, 2012, 2014, 2016, 2018, 2020), 
     labels = c("2010", "2012", "2014", "2016", "2018", "2020")
@@ -262,7 +267,8 @@ ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
   labs(
     title = "Correlation between Age and Items",
     x = "Item Category",
-    y = "Correlation coefficient"
+    y = "Correlation coefficient",
+    caption = "Data source: TidyTuesday 2024-02-13, Gifts-Age Dataset"
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
