@@ -34,12 +34,11 @@ For this research project we made use of the following datasets:
 ```{r, echo=FALSE}
 # Tabelle mit Spaltennamen und Datentypen erstellen
 get_column_info <- function(df) {
-  column_info <- data.frame(
+  data.frame(
     Attribute = colnames(df),  # Spaltennamen als eigene Spalte
     Type = sapply(df, class),  # Datentypen jeder Spalte
-    row.names = NULL 
+    row.names = NULL
   )
-
 }
 
 # Ausgabe der Tabelle
