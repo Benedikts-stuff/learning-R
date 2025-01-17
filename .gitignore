@@ -49,8 +49,5 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
-# All submissions
-*.html
-
 # macOS
 .DS_Store
