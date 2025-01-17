@@ -1,7 +1,9 @@
 ---
 title: "Analyzing the Impact of Demographics and the COVID-19 Pandemic on Valentine's Day Spending Behavior"
-output: html_document
-date: "2024-12-13"
+output:
+  pdf_document: default
+  html_notebook: default
+date: "2025-1-17"
 ---
 
 ```{r setup, include=FALSE}
@@ -25,9 +27,9 @@ During the COVID-19 pandemic, people in the U.S. faced severe restrictions on th
 
 For this research project we made use of the following datasets:
 
-- [COVID-19 cases in 2020](https://www.kaggle.com/datasets/sudalairajkumar/covid19-in-usa)
+-   [COVID-19 cases in 2020](https://www.kaggle.com/datasets/sudalairajkumar/covid19-in-usa)
 
-- [Spending behaviour on Valentines day](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-02-13/readme.md)
+-   [Spending behaviour on Valentines day](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-02-13/readme.md)
 
 All data was collected exclusively in the USA.
 
@@ -57,7 +59,7 @@ print(get_column_info(historical_spending, "historical_spending"))
 print(get_column_info(data, "COVID-19-2020-US"))
 ```
 
-## How Does the Covid-19 Pandemic Impact the Behaviour on Valentines Day
+## How Does the Covid-19 Pandemic Impact the Behavior on Valentines Day
 
 ```{r, echo=FALSE}
 data <- data[!is.na(data$date) & data$date != "", ]
@@ -284,14 +286,10 @@ ggplot(correlation_df, aes(x = Variable, y = Correlation)) +
 
 While most items decrease in popularity with increasing age, greeting cards become significantly more popular.
 
-
 ## Conclusion
 
-In conclusion, the COVID-19 pandemic had a notable impact on Valentine's Day spending behavior, leading to an increase in both the percentage of people celebrating the holiday and the average amount spent per person. Age plays a significant role in spending behavior, with older individuals less likely to spend money on Valentine's. 
-
-Since the data covers only the year 2020, we cannot draw conclusions about trends over the entire COVID-19 pandemic or determine whether these trends persisted after the pandemic.
-Additionally, this analysis focused on the US population, and the results may not be generalizable to other countries or regions as spending behavior may vary significantly across cultures and societies and COVID-19 may have affected different countries differently. 
-
+In conclusion, the COVID-19 pandemic had a notable impact on Valentine's Day spending behavior, leading to an increase in both the percentage of people celebrating the holiday and the average amount spent per person. Age plays a significant role in spending behavior, with older individuals less likely to spend money on Valentine's.\
+Since the data covers only the year 2020, we cannot draw conclusions about trends over the entire COVID-19 pandemic or determine whether these trends persisted after the pandemic. Additionally, this analysis focused on the US population, and the results may not be generalizable to other countries or regions as spending behavior may vary significantly across cultures and societies and COVID-19 may have affected different countries differently.
 
 ## Future Outlook
 
