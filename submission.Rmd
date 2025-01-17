@@ -23,6 +23,12 @@ data <- read.csv("./data/Covid-19-data/us_covid19_daily.csv")
 
 During the COVID-19 pandemic, people in the U.S. faced severe restrictions on their social lives. The frequency of interactions with friends and family decreased, and activities such as dating or even grocery shopping were significantly impacted. To understand how these restrictions affected consumer spending, we will examine spending patterns on Valentine's Day to determine whether the pandemic led to increased spending. Additionally, we will analyze the most popular gifts and explore how age influences both the types of gifts purchased and the amount spent on Valentine's Day over a 12-year period (2010–2022).
 
+For this research project we made use of the following datasets:
+
+- [COVID-19 cases in 2020](https://www.kaggle.com/datasets/sudalairajkumar/covid19-in-usa)
+
+- [Spending behaviour on Valentines day](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-02-13/readme.md)
+
 ## How Does the Covid-19 Pandemic Impact the Behaviour on Valentines Day
 
 ```{r, echo=FALSE}
@@ -185,7 +191,8 @@ line_plot <- ggplot(longer, aes(x = Year, y = Percentage, color = Category, grou
   labs(title = "Spending Trends by Category", 
        x = "Year", 
        y = "Percentage", 
-       color = "Category") +
+       color = "Category",
+       caption = "Data source: TidyTuesday 2024-02-13") +
   theme_minimal()
 
 grid.arrange(bar_plot, line_plot, ncol = 1)
@@ -205,7 +212,7 @@ longer$Category <- factor(longer$Category, levels = category_labels)
 ggplot(longer, aes(x = Year, y = Spending, shape = Category, color = Category)) +
     geom_point() +
     geom_smooth(method = "lm", se = FALSE) +
-    labs(title = "Trends of Spending by Category", x = "Year", y = "Average Spending in $") +
+    labs(title = "Trends of Spending by Category", x = "Year", y = "Average Spending in $", caption = "Data source: TidyTuesday 2024-02-13") +
     scale_x_continuous(
     breaks = c(2010, 2012, 2014, 2016, 2018, 2020), 
     labels = c("2010", "2012", "2014", "2016", "2018", "2020")
@@ -251,4 +258,3 @@ In conclusion, the COVID-19 pandemic had a notable impact on Valentine's Day spe
 ## Future Outlook
 
 Future studies could explore the impact of the COVID-19 pandemic on other holidays and consumer behaviors. Additionally, analyzing the influence of other factors, such as income and relationship status, on Valentine's Day spending could provide further insights into consumer behavior trends.
-
