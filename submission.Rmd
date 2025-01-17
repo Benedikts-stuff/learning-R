@@ -29,6 +29,10 @@ For this research project we made use of the following datasets:
 
 - [Spending behaviour on Valentines day](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-02-13/readme.md)
 
+All data was collected exclusively in the USA.
+
+All data was collected exclusively in the USA.
+
 ## Data Overview
 ```{r, echo=FALSE}
 # Tabelle mit Spaltennamen und Datentypen erstellen
