@@ -285,9 +285,12 @@ While most items decrease in popularity with increasing age, greeting cards beco
 
 ## Conclusion
 
-In conclusion, the COVID-19 pandemic had a notable impact on Valentine's Day spending behavior, leading to an increase in both the percentage of people celebrating the holiday and the average amount spent per person. Age plays a significant role in spending behavior, with older individuals less likely to spend money on Valentine's. Since the data covers only the year 2020, we cannot draw conclusions about trends over the entire COVID-19 pandemic or determine whether these trends persisted after the pandemic.
+In conclusion, the COVID-19 pandemic had a notable impact on Valentine's Day spending behavior, leading to an increase in both the percentage of people celebrating the holiday and the average amount spent per person. Age plays a significant role in spending behavior, with older individuals less likely to spend money on Valentine's. 
+
+Since the data covers only the year 2020, we cannot draw conclusions about trends over the entire COVID-19 pandemic or determine whether these trends persisted after the pandemic.
+Additionally, this analysis focused on the US population, and the results may not be generalizable to other countries or regions as spending behavior may vary significantly across cultures and societies and COVID-19 may have affected different countries differently. 
 
 
 ## Future Outlook
 
-Future studies could explore the impact of the COVID-19 pandemic on other holidays and consumer behaviors. Additionally, analyzing the influence of other factors, such as income and relationship status, on Valentine's Day spending could provide further insights into consumer behavior trends.
+Future studies could explore the impact of the COVID-19 pandemic on other holidays and consumer behaviors. Also, analyzing the influence of other factors, such as income and relationship status, on Valentine's Day spending could provide further insights into consumer behavior trends. To gain a more comprehensive understanding of consumer behavior, it would be beneficial to analyze data from multiple years and countries to identify global trends and regional variations in spending behavior.
